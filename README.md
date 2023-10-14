@@ -1,2 +1,2 @@
-# Pluto 24
-Code für eine Android-App mit Firebase Backend im WS 23/24
+# Pluto 24 (HAW-Landshut)
+Code für eine Android-App mit Firebase Backend im Wintersemester 23/24
