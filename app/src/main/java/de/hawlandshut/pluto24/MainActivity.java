@@ -1,12 +1,15 @@
 package de.hawlandshut.pluto24;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -28,11 +31,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_item1){
+            Toast.makeText(getApplicationContext(), "Item 1", Toast.LENGTH_LONG).show();
+        } else if ( item.getItemId() == R.id.menu_item2){
+            Toast.makeText(getApplicationContext(), "Item 2", Toast.LENGTH_LONG).show();
+        }
+        else if ( item.getItemId() == R.id.menu_item3){
+            Toast.makeText(getApplicationContext(), "Item 3", Toast.LENGTH_LONG).show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         Log.d(TAG, "called onStart");
-        Toast.makeText(getApplicationContext(), "in onStart!!.", Toast.LENGTH_LONG).show();
+        //TODO: Nur zum Testen, später raus!
+        Intent intent = new Intent( getApplication(), SignInActivity.class);
+        startActivity( intent );
     }
+
 
     @Override
     protected void onResume() {
