@@ -48,10 +48,9 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         Log.d(TAG, "called onStart");
         //TODO: Nur zum Testen, später raus!
-        Intent intent = new Intent( getApplication(), SignInActivity.class);
+        Intent intent = new Intent( getApplication(), PostActivity.class);
         startActivity( intent );
     }
-
 
     @Override
     protected void onResume() {
