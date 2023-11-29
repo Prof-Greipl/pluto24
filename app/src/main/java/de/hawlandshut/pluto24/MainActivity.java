@@ -102,15 +102,14 @@ public class MainActivity extends AppCompatActivity {
     private void doCreateUser() {
         FirebaseAuth.getInstance()
                 .createUserWithEmailAndPassword(TEST_MAIL, TEST_PASSWORD)
-                .addOnCompleteListener(this,
-                        new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 String msg;
                                 if (task.isSuccessful()){
                                     msg = "User created";
                                 } else {
-                                    msg = "Failed: " +task.getResult();
+                                    msg = "Failed :" + task.getException();
                                 }
                                 Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
                             }
