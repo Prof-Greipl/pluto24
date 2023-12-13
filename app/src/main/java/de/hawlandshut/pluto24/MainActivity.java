@@ -42,6 +42,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_manage_account){
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null){
+                Intent intent = new Intent( getApplication(), ManageAccountActivity.class);
+                startActivity( intent );
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "You should not be able to do this", Toast.LENGTH_LONG).show();
+            }
+        }
         if (item.getItemId() == R.id.menu_test_auth){
             doTestAuth();
         }
@@ -242,9 +252,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Log.d(TAG, "called onStart");
-        //TODO: Nur zum Testen, später raus!
-        //Intent intent = new Intent( getApplication(), PostActivity.class);
-        //startActivity( intent );
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            Intent intent = new Intent(getApplication(), SignInActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override

@@ -40,7 +40,7 @@
         />
 
     <Button
-        android:id="@+id/manage_account_button_resend"
+        android:id="@+id/manage_account_button_send_activation_mail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Send Activation Mail"
@@ -53,14 +53,14 @@
         />
 
     <TextView
-        android:id="@+id/sign_in_textview_text"
+        android:id="@+id/manage_account_textview_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="For security reasons pls. enter your password."
         />
 
     <EditText
-        android:id="@+id/create_account_edit_text_password"
+        android:id="@+id/manage_account_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
