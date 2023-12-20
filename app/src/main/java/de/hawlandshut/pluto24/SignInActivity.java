@@ -3,6 +3,7 @@ package de.hawlandshut.pluto24;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener{
     static final String TAG ="xx SignInActivity";
@@ -40,8 +42,21 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         mButtonSignIn.setOnClickListener( this );
 
         // TODO: Only for testing - remove later
-        mEditTextEMail.setText("fhgreipl@gmail.com");
-        mEditTextPassword.setText("123456");
+        //mEditTextEMail.setText("fhgreipl@gmail.com");
+        //mEditTextPassword.setText("123456");
+    }
+
+    @Override
+    protected void onStart() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            // Wir kommen von der MainActivity und tun nix;
+        }
+        else {
+            // Wir kommen von CreateAccount
+            finish();
+        }
+        super.onStart();
     }
 
     @Override
@@ -66,6 +81,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                             }
                         }
                     });
+        }
+
+        if (view.getId() == R.id.sign_in_button_create_acccount){
+            Intent intent = new Intent(getApplication(), CreateAccountActivity.class);
+            startActivity(intent);
         }
     }
 }
