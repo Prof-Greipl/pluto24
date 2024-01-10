@@ -2,6 +2,10 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:title="Post"
+        android:id="@+id/menu_post"/>
+
+
     <item android:title="Manage Account"
         android:id="@+id/menu_manage_account"/>
 

@@ -19,6 +19,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.Query;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "called onCreate");
     }
 
+    ListenerRegistration addQueryListener(){
+        Query query = FirebaseFirestore.getInstance().collection('posts')
+                .orderBy("createdAt", Query.Direction.DESCENDING)
+                .limit(5);
+        return query.addSnapshotListener() // Hier weiter
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -56,6 +65,16 @@ public class MainActivity extends AppCompatActivity {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user != null) {
                 Intent intent = new Intent(getApplication(), ManageAccountActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(), "You should not be able to do this", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        if (item.getItemId() == R.id.menu_post) {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                Intent intent = new Intent(getApplication(), PostActivity.class);
                 startActivity(intent);
             } else {
                 Toast.makeText(getApplicationContext(), "You should not be able to do this", Toast.LENGTH_LONG).show();
