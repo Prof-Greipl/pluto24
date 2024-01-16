@@ -6,12 +6,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.Date;
 
 public class Post {
-    String title;
-    String body;
-    Date createdAt;
-    String uid;
-    String email;
-    String source;
+    public String title;
+    public String body;
+    public Date createdAt;
+    public String uid;
+    public String email;
+    public String source;
 
     public Post(String title, String body, Date createdAt, String uid, String email, String source) {
         this.title = title;
