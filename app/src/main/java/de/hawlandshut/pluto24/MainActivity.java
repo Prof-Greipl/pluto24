@@ -12,12 +12,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.EventListener;
@@ -36,10 +33,19 @@ public class MainActivity extends AppCompatActivity {
     static final String TAG ="xx MainActivity";
 
     ListenerRegistration  mListenerRegistration;
+    CustomAdapter mAdapter;
+    RecyclerView mRecyclerView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAdapter = new CustomAdapter();
+        mRecyclerView = findViewById( R.id.recycler_view);
+        mRecyclerView.setLayoutManager( new LinearLayoutManager( this ));
+        mRecyclerView.setAdapter( mAdapter );
         Log.d(TAG, "called onCreate");
     }
 
@@ -51,14 +57,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
                 Log.w(TAG, "Number of docs in Snapshot"+snapshots.size());
+                mAdapter.mPostList.clear();
                 for (QueryDocumentSnapshot doc : snapshots) {
                     Post addedPost;
                     if (doc.get("uid") != null) {
                         Log.d(TAG, "SnapshotListener : received " + doc.getId());
                         addedPost = Post.fromDocument( doc );
+                        mAdapter.mPostList.add( addedPost );
                         Log.d(TAG,(String) doc.get("body") );
                     }
                 }
+                mAdapter.notifyDataSetChanged();
             }
         }); // Hier weiter
     }
